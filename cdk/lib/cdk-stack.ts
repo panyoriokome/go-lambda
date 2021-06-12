@@ -80,7 +80,5 @@ export class CdkStack extends cdk.Stack {
     todoIdResource.addMethod('GET', new apigw.LambdaIntegration(apiLambda));
     todoIdResource.addMethod('PUT', new apigw.LambdaIntegration(apiLambda));
     todoIdResource.addMethod('DELETE', new apigw.LambdaIntegration(apiLambda));
-
-
   }
 }
