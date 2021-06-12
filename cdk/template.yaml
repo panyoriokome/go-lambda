@@ -1,0 +1,141 @@
+Resources:
+  MyGoFunctionServiceRole72835A2E:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: GoLambdaStack/MyGoFunction/ServiceRole/Resource
+  MyGoFunction0AB33E85:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParametersf2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13S3Bucket4BEAFE5C
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersf2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13S3VersionKey3043C2E1
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersf2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13S3VersionKey3043C2E1
+      Role:
+        Fn::GetAtt:
+          - MyGoFunctionServiceRole72835A2E
+          - Arn
+      FunctionName: GoSampleLambdaFunction
+      Handler: main
+      Runtime: go1.x
+    DependsOn:
+      - MyGoFunctionServiceRole72835A2E
+    Metadata:
+      aws:cdk:path: GoLambdaStack/MyGoFunction/Resource
+      aws:asset:path: /Users/panyoriokome/workspaces/projects/go-lambda/cdk/cdk.out/asset.f2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13
+      aws:asset:property: Code
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAAE02OzQrCMBCEn8X7dtsgokel4FnqE8RkLelPAtlEDyHvbtNS8DQzMDv7CUyiEdgcrvLLldJjrZwnTM8g1Qitsxx8VAHat31IL2cK5EvoiF30iopfWtoE42wG0Zz/t1IxaZLzS0tM92hVqZWb3WcwcsbUuWmdKpqBj5VkpsB4K5JhY1rDAtYb28MOkHMG6zThwPVHnPCy/B/YmMpHG8xM2G36A1r6wYnpAAAA
+    Metadata:
+      aws:cdk:path: GoLambdaStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Parameters:
+  AssetParametersf2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13S3Bucket4BEAFE5C:
+    Type: String
+    Description: S3 bucket for asset "f2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13"
+  AssetParametersf2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13S3VersionKey3043C2E1:
+    Type: String
+    Description: S3 key for asset version "f2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13"
+  AssetParametersf2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13ArtifactHash9AB753D3:
+    Type: String
+    Description: Artifact hash for asset "f2efd72c5c522df5b6cca4dcb6ca30e68f607f3e43dcf44b52b00dcb38a59a13"
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+
